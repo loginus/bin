@@ -1,0 +1,17 @@
+#!/bin/bash
+while true
+do
+	sleep 90
+	gotowe=$(ls audio_[0-9]*wav|wc -l);
+	echo "Gotowe = $gotowe"
+	for $plik in audio_[0-9]*wav
+	do
+		echo "Plik = $plik"
+		$gotowe=$(($gotowe - 1));
+		if [[ $gotowe -lt 1 ]]
+		then
+			break
+		fi
+		oggenc -q 6 $plik && rm $plik
+	done
+done

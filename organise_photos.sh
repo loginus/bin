@@ -3,9 +3,12 @@
 # Creates directory for each day
 # and moves photos to relevant directory
 
+TIMESTAMP="timestamp" #english version
+exiv2 | grep "Manipulowanie" && TIMESTAMP="Znacznik czasu" # polish version
+
 for x in $@
 do
-DIR=`exiv2 "$x" | grep timestamp | awk '{print $4}' | sed 's/:/_/g'`
+DIR=`exiv2 "$x" | grep $TIMESTAMP | awk '{print $4}' | sed 's/:/_/g'`
 if [ ! -d $DIR ]
 then
 	mkdir $DIR
